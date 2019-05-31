@@ -1,0 +1,47 @@
+{% extends 'base/base.html' %}
+
+{% block content %}
+<h1 align="center">Listado de Empleados</h1><br></br>
+<table class="table table-bordered">
+	<thead>
+		<tr align="center">
+			<td><b>id</b></td>
+			<td><b>Nombre(s)</b></td>
+			<td><b>Apellido(s)</b></td>
+			<td><b>Sexo</b></td>
+			<td><b>Dirección</b></td>
+			<td><b>Teléfono</b></td>
+			<td><b>Correo electrónico</b></td>
+			<td><b>Acciones</b></td>
+		</tr>
+
+	</thead>
+	<tbody>
+		{% if empleado %}
+		{% for empleado in empleado %}
+		<tr align="center">
+			<td>{{ empleado.id }}</td>
+			<td>{{ empleado.nombre }}</td>
+			<td>{{ empleado.apellido }}</td>
+			<td>{{ empleado.sexo }}</td>
+			<td>{{ empleado.direccion }}</td>
+			<td>{{ empleado.telefono }}</td>
+			<td>{{ empleado.correo }}</td>
+			<td>
+				<a class="btn btn-primary" href="{% url 'empleado:empleado_editar' empleado.id %}">Editar</a>
+
+				<a class="btn btn-danger" href="{% url 'empleado:empleado_eliminar' empleado.id %}">Eliminar</a>
+
+			</td>
+		</tr>
+		{% endfor %}
+
+		{% else %} 
+		<h1>No hay registro de Empleados</h1>
+
+		{% endif %}
+	</tbody>
+
+</table>
+
+{% endblock %}

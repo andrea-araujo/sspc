@@ -1,0 +1,41 @@
+{% extends 'base/base.html' %}
+
+{% block content %}
+<h1 align="center">Listado de Herramientas</h1><br></br>
+<table class="table table-bordered">
+	<thead>
+		<tr align="center">
+			<td><b>id</b></td>
+			<td><b>Nombre</b></td>
+			<td><b>Fabricante</b></td>
+			<td><b>Costo</b></td>
+			<td><b>Acciones</b></td>
+		</tr>
+
+	</thead>
+	<tbody>
+		{% if herramienta %}
+		{% for herramienta in herramienta %}
+		<tr align="center">
+			<td>{{ herramienta.id }}</td>
+			<td>{{ herramienta.nombre }}</td>
+			<td>{{ herramienta.fabricante }}</td>
+			<td>$ {{ herramienta.costo }} mx</td>
+			<td>
+				<a class="btn btn-primary" href="{% url 'herramienta:herramienta_editar' herramienta.id %}">Editar</a>
+
+				<a class="btn btn-danger" href="{% url 'herramienta:herramienta_eliminar' herramienta.id %}">Eliminar</a>
+
+			</td>
+		</tr>
+		{% endfor %}
+
+		{% else %}
+		<h1>No hay registro de herramientas</h1>
+
+		{% endif %}
+	</tbody>
+
+</table>
+
+{% endblock %}

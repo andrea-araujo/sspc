@@ -1,0 +1,62 @@
+{% extends 'base/base.html' %}
+
+{% block content %}
+<h1 align="center">Listado de Reportes</h1><br></br>
+
+<table class="table table-bordered">
+	<thead>
+		<tr align="center">
+			<td><b>id</b></td>
+			<td><b>Fecha</b></td>
+			<td><b>Empleado</b></td>
+			<td><b>Cliente</b></td>
+			<td><b>Servicio(s)</b></td>
+			<td><b>Herramienta(s)</b></td>
+			<td><b>Descripción de servicio(s)</b></td>
+			<td><b>Acciones</b></td>
+		</tr>
+
+	</thead>
+	<tbody>
+		{% if reporte %}
+		{% for reporte in reporte %}
+		<tr align="center">
+			<td>{{ reporte.id }}</td>
+			<td>{{ reporte.fecha }}</td>
+			<td>{{ reporte.empleado.nombre }} {{ reporte.empleado.apellido }}</td>
+			<td>{{ reporte.cliente.nombre }} {{ reporte.cliente.apellido }}</td>
+			<td>
+			<ul>{% for servicio in reporte.servicio.all %}
+				<li>
+					{{servicio.nombre}}
+				</li>
+				{% endfor %}
+			</ul>
+		</td>
+		<td>
+			<ul>{% for herramienta in reporte.herramienta.all %}
+				<li>
+					{{herramienta.nombre}}
+				</li>
+				{% endfor %}
+			</ul>
+		</td>
+			<td>{{ reporte.descripcion }}</td>
+			<td>
+				<a class="btn btn-primary" href="{% url 'reporte:reporte_editar' reporte.id %}">Editar</a>
+
+				<a class="btn btn-danger" href="{% url 'reporte:reporte_eliminar' reporte.id %}">Eliminar</a>
+
+			</td>
+		</tr>
+		{% endfor %}
+
+		{% else %}
+		<h1>No hay registro de reportes</h1>
+
+		{% endif %}
+	</tbody>
+
+</table>
+
+{% endblock %}
